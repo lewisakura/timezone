@@ -1,0 +1,16 @@
+<style>
+  #container {
+    position: absolute;
+    top: 50%; right: 50%;
+    transform: translate(50%,-50%);
+    font-size: xxx-large;
+  }
+</style>
+
+<div id="container">
+  <noscript>Enable JavaScript.</noscript>
+</div>
+
+<script>
+  document.getElementById("container").innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
+</script>
