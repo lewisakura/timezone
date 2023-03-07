@@ -1,16 +1,103 @@
-<style>
-  #container {
-    position: absolute;
-    top: 50%; right: 50%;
-    transform: translate(50%,-50%);
-    font-size: xxx-large;
-  }
-</style>
+<!DOCTYPE html>
+<!-- inspired by https://ip.osk.sh/ -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    
+    <link href="https://gh.lewisakura.moe/timezone" rel="canonical">
+    <link href="https://lewisakura.moe/favicon.png" rel="icon" type="image/png">
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+      
+      :root {
+        --base: #1e1e2e;
+        --text: #cdd6f4;
+        --surface0: #313244;
+        --green: #a6e3a1;
+      }
+      
+      @media (prefers-color-scheme: light) {
+        :root {
+          --base: #eff1f5;
+          --text: #4c4f69;
+          --surface0: #ccd0da;
+          --green: #40a02b;
+        } 
+      }
+      
+      body {
+        background: var(--base);
+        color: var(--text);
+        font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
+      }
 
-<div id="container">
-  <noscript>Enable JavaScript.</noscript>
-</div>
+      #container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
+        max-width: 75vw;   
+        font-size: 10vw;
+        font-weight: bold;
+        
+        padding: 0.5em;
+        border: 2px solid var(--surface0);
+        
+        user-select: none;
+        cursor: pointer;
+        
+        transition: 0.2s border;
+      }
+      
+      #container::after {
+        display: inline-block;
+        background: var(--base);
+        
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 50%);
+        
+        content: 'CLICK TO COPY';
+        
+        font-size: 0.15em;
+        font-weight: normal;
+        
+        padding: 0 0.5em;
+        
+        transition: 0.2s color;
+      }
+      
+      .copied #container {
+        border-color: var(--green);
+      }
+      
+      .copied #container::after {
+        content: 'COPIED';
+        color: var(--green);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <noscript>Enable JavaScript.</noscript>
+    </div>
 
-<script>
-  document.getElementById("container").innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
-</script>
+    <script>
+      const body = document.body;
+      const container = document.getElementById("container");
+      
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      
+      container.innerText = timezone;
+      container.addEventListener("click", () => {
+        navigator.clipboard.writeText(timezone);
+        body.className = "copied";
+        setTimeout(() => body.className = "", 1000);
+      });
+    </script>
+  </body>
+</html>
