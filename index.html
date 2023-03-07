@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width,initial-scale=1" name="viewport">
     
+    <title>Timezone</title>
+    
     <link href="https://gh.lewisakura.moe/timezone" rel="canonical">
     <link href="https://lewisakura.moe/favicon.png" rel="icon" type="image/png">
     
@@ -84,7 +86,7 @@
   </head>
   <body>
     <div id="container">
-      <noscript>Enable JavaScript.</noscript>
+      <noscript>Enable JavaScript</noscript>
     </div>
 
     <script>
@@ -94,6 +96,7 @@
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       
       container.innerText = timezone;
+      document.title = timezone;
       container.addEventListener("click", () => {
         navigator.clipboard.writeText(timezone);
         body.className = "copied";
